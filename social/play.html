@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nepal Landmark Quiz - Play</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Game Title -->
+    <h1>🇳🇵 Nepal Landmark Quiz</h1>
+
+    <!-- Info bar -->
+    <p id="infoText">Difficulty: <span id="difficultyText"></span> | Score: <span id="score">0</span></p>
+
+    <!-- Landmark Image -->
+    <img id="landmarkImage" src="" alt="Landmark" 
+         style="width: 400px; height: auto; border-radius: 15px; margin-bottom: 15px; 
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+
+    <!-- Feedback message -->
+    <p id="feedback" style="font-size: 1.5em; margin: 15px 0; height: 30px;"></p>
+
+    <!-- Answer buttons -->
+    <div>
+        <button id="btn0"></button>
+        <button id="btn1"></button>
+        <button id="btn2"></button>
+        <button id="btn3"></button>
+    </div>
+
+</div>
+
+<script src="js/landmarks.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/game.js"></script>
+
+<script>
+// Show difficulty in the info text
+document.getElementById("difficultyText").innerText = localStorage.getItem("difficulty");
+</script>
+
+</body>
+</html>

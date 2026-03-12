@@ -1,0 +1,185 @@
+🟢 Easy Landmarks (Very Famous) — ~35
+
+Most Nepalis or tourists recognize these instantly.
+
+Pashupatinath Temple- pashupati.png
+
+Boudhanath Stupa- boudha.png
+
+Swayambhunath Stupa- swayambhu.png
+
+Kathmandu Durbar Square- ktm-dsq.png
+
+Patan Durbar Square- patan-dsq.png
+
+Bhaktapur Durbar Square- bkt-dsq.png
+
+Dharahara Tower- dharahara.png
+
+Janaki Temple- janaki.png
+
+Maya Devi Temple (Lumbini)- mdt.png
+
+Mount Everest- mtev.png
+
+Annapurna Base Camp- abc.png
+
+Everest Base Camp- ebc.png
+
+Phewa Lake- phewa.png
+
+Tal Barahi Temple- tbt.png
+
+Bindhyabasini Temple- bindyabasini.png
+
+Manakamana Temple- manakamana.png
+
+Budhanilkantha Temple- budhanilkantha.png
+
+Dakshinkali Temple- dakshinkali.png
+
+Narayanhiti Palace Museum- narayanhiti.png
+
+Garden of Dreams- god.png
+
+World Peace Pagoda (Pokhara)- wpp.png
+
+Sarangkot Temple- st.png
+
+Chitwan National Park- cnp.png
+
+Rara Lake- rara.png
+
+Shey Phoksundo Lake- spl.png
+
+Gosaikunda Lake- gkl.png
+
+Annapurna I- a1.png
+
+Machapuchare- mp.png
+
+Manaslu- manaslu.png
+
+Dhaulagiri- dhaulagiri.png
+
+Ilam Tea Gardens- itg.png
+
+Ghandruk Village- ghandruk.png
+
+Bandipur Village- bandipur.png
+
+Seti Gorge- seti.png
+
+International Mountain Museum- imm.png
+
+🟡 Medium Landmarks — ~32
+
+Recognizable but not obvious immediately.
+
+Nyatapola Temple- nytatapola.png
+
+Dattatreya Temple- datatraye.png
+
+Taleju Temple- taleju.png
+
+Changu Narayan Temple- changu.png
+
+Kasthamandap- kasthamandap.png
+
+Hanuman Dhoka Palace- hd.png
+
+Rani Pokhari (Ktm)- rp-ktm.png
+
+Begnas Lake- begnas.png
+
+Rupa Lake- rupa.png
+
+Devi’s Fall- df.png
+
+Gupteshwor Cave- gc.png
+
+Ram Mandir (Janakpur)- jrt.png
+
+Vivah Mandap- bm.png
+
+Ashoka Pillar Lumbini- apl.png
+
+Thai Monastery Lumbini- tml.png
+
+Korean Monastery Lumbini- kml.png
+
+Eternal Peace Flame- epf.png
+
+Tengboche Monastery- tm.png
+
+Namche Bazaar- nb.png
+
+Kala Patthar- kp.png
+
+Khumbu Glacier- kg.png
+
+Gorkha Durbar- gd.png
+
+Pathibhara Temple- pt.png
+
+Halesi Mahadev Temple- hmt.png
+
+Budha Subba Temple- bst.png
+
+Baraha Kshetra Temple- bkt.png
+
+Dolakha Bhimsen Temple- dbt.png
+
+Tansen Durbar- td.png
+
+Chandragiri Hill- ch.png
+
+Kalinchowk Bhagwati Temple- kbt.png
+
+Shivapuri National Park- snp.png
+
+Langtang National Park- ltp.png
+
+🔴 Hard Landmarks — ~20
+
+Remote places, villages, or visually confusing spots.
+
+Kagbeni Village- kv.png
+
+Lo Manthang Palace- lmp.png
+
+Jomsom Village- j.png
+
+Thorong La Pass- tlp.png
+
+Tilicho Lake- tilicho.png
+
+Machapuchare Base Camp- mbc.png
+
+Gokyo Lake- gl.png
+
+Marpha Village- mv.png
+
+Ghalegaun Village- gv.png
+
+Nuwakot Durbar- nd.png
+
+Lamjung Durbar- ld.png
+
+Shree Antu Viewpoint- sav.png
+
+Bhedetar View Tower- bvt.png
+
+Koshi Tappu Wildlife Reserve- ktwr.png
+
+Hyatung Waterfall- hw.png
+
+Jalbire Waterfall- jw.png
+
+Rupse Waterfall- rwf.png
+
+Bhote Koshi River- bkr.png
+
+Trishuli River- tr.png
+
+Ganga Sagar (Janakpur)- gsj.png

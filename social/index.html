@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nepal Landmark Quiz 🇳🇵</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Game Title -->
+    <h1>🇳🇵 Nepal Landmark Quiz</h1>
+
+    <!-- Instructions -->
+    <p>Enter your name and select a difficulty to start!</p>
+
+    <!-- Player Name Input -->
+    <input type="text" id="playerNameInput" placeholder="Your Name" 
+        style="padding: 10px 15px; font-size: 1.1em; border-radius: 10px; 
+               border: 1px solid rgba(255,255,255,0.4); margin-bottom: 20px; 
+               width: 70%; backdrop-filter: blur(5px);">
+
+    <!-- Difficulty Buttons -->
+    <br>
+    <button onclick="startGame('Easy')">Easy</button>
+    <button onclick="startGame('Medium')">Medium</button>
+    <button onclick="startGame('Hard')">Hard</button>
+
+    <!-- Leaderboard Link -->
+    <br><br>
+    <a href="leaderboard.html">View Leaderboard</a>
+
+</div>
+
+<!-- Script to handle player name & difficulty -->
+<script>
+function startGame(diff) {
+    let playerName = document.getElementById("playerNameInput").value.trim();
+    if (!playerName) {
+        alert("Please enter your name!");
+        return;
+    }
+
+    localStorage.setItem("playerName", playerName);
+    localStorage.setItem("difficulty", diff);
+    window.location.href = "play.html";
+}
+</script>
+
+</body>
+</html>
