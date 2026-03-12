@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Open House</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    height:100vh;
+    display:flex;
+    justify-content:flex-start; /* so we can push it down */
+    align-items:center;
+    flex-direction:column;
+    font-family: Arial, sans-serif;
+    background-image:url("home.png");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* push button down a bit */
+.button-wrapper{
+    margin-top:470px; /* adjust to move it further down or up */
+}
+
+/* start button */
+.start-btn{
+    background: rgba(255, 255, 255, 0.35); /* translucent white */
+    color:white;
+    padding:18px 42px;
+    font-size:22px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:
+        0 0 8px rgba(255,255,255,0.6),
+        0 0 16px rgba(255,255,255,0.6);
+    transition:0.2s;
+}
+
+.start-btn:hover{
+    transform:scale(1.07);
+    box-shadow:
+        0 0 12px rgba(255,255,255,0.8),
+        0 0 22px rgba(255,255,255,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<div class="button-wrapper">
+    <button class="start-btn" onclick="location.href='sp.html'">
+        <b>🎒 Start Exploring</b>
+    </button>
+</div>
+
+</body>
+</html>
