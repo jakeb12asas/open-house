@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Playground - MIT Lab Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+/* ---------- GENERAL ---------- */
+body { margin:0; font-family:'Inter',sans-serif; background:#050816; color:white; overflow-x:hidden; }
+h1,h2,h3 { margin:0; }
+section { padding:80px 10%; }
+a { color:#ffd60a; text-decoration:none; margin-left:20px; }
+button { cursor:pointer; }
+
+/* ---------- NAVBAR ---------- */
+nav {
+  position:fixed; top:0; width:100%;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 10%; z-index:20; box-sizing:border-box;
+}
+.nav-logo { color:#ffd60a; font-weight:700; }
+nav a:hover { color:#fff; }
+
+/* ---------- HERO ---------- */
+.hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; overflow:hidden; }
+.hero h1 { font-size:4rem; text-shadow:0 0 25px #ffd60a; margin-bottom:10px; }
+.hero p { opacity:0.8; }
+.spiral { position:absolute; width:500px; height:500px; border-radius:50%; border:2px solid #ffd60a; top:50%; left:50%; transform:translate(-50%,-50%); animation:spin 30s linear infinite; opacity:0.2; }
+@keyframes spin { 0%{transform:translate(-50%,-50%) rotate(0deg);} 100%{transform:translate(-50%,-50%) rotate(360deg);} }
+
+/* ---------- GLASS CARDS ---------- */
+.glass { background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); border-radius:15px; padding:30px; margin-bottom:40px; box-shadow:0 0 25px rgba(255,214,0,0.15); transition:0.3s; }
+.glass:hover { box-shadow:0 0 35px rgba(255,214,0,0.25); }
+
+/* ---------- NUMBERS LAB ---------- */
+.num-controls { display:flex; align-items:center; justify-content:center; gap:15px; margin:20px 0; }
+.num-controls b { font-size:2rem; min-width:60px; text-align:center; }
+.num-btn { padding:10px 20px; border:none; border-radius:6px; background:#ffd60a; color:#111; font-weight:700; transition:0.2s; }
+.num-btn:hover { background:#ffea55; }
+
+/* ---------- 3D SHAPES ---------- */
+.shape-area { display:flex; flex-direction:row; justify-content:center; align-items:center; gap:30px; flex-wrap:wrap; margin-top:20px; }
+.shape-container { display:flex; flex-direction:column; align-items:center; }
+.shape-label { margin-top:8px; color:rgba(255,214,0,0.7); font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; }
+
+/* ---------- ALGEBRA ---------- */
+#algebra p { margin:8px 0; font-size:1.05rem; }
+
+/* ---------- GRAPH ---------- */
+#graph .glass { text-align:center; }
+.graph-input { display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px; flex-wrap:wrap; }
+#equation { padding:12px 15px; border:2px solid #ffd60a; border-radius:8px; background:rgba(0,0,0,0.3); color:white; font-size:1rem; width:250px; }
+#equation:focus { outline:none; box-shadow:0 0 10px rgba(255,214,0,0.3); }
+#graphCanvas { display:block; margin:0 auto; border-radius:10px; background:#020617; max-width:100%; }
+
+/* ---------- QUIZ ---------- */
+.quiz-options { display:flex; gap:10px; flex-wrap:wrap; margin-top:15px; justify-content:center; }
+.quiz-btn { padding:10px 16px; border:none; border-radius:8px; background:#ffd60a; font-weight:600; cursor:pointer; color:#111; transition:0.2s; }
+.quiz-btn:hover { background:#ffea55; }
+.quiz-result { margin-top:15px; font-weight:bold; color:#ffd60a; }
+#quizQuestion { font-size:1.1rem; line-height:1.8; }
+
+/* ---------- WORDLE ---------- */
+.wordle-grid { display:flex; flex-direction:column; gap:8px; margin:20px 0; align-items:center; }
+.wordle-row { display:flex; gap:8px; }
+.wordle-cell {
+  width:55px; height:55px; border-radius:8px;
+  background:rgba(255,255,255,0.03);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:1.5rem; user-select:none;
+  border:2px solid rgba(255,255,255,0.12); transition:all 0.3s;
+}
+.wordle-cell.filled { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.07); }
+.wordle-cell.correct { background:#22c55e; color:#fff; border-color:#22c55e; }
+.wordle-cell.present { background:#eab308; color:#111; border-color:#eab308; }
+.wordle-cell.wrong   { background:#dc3545; color:#fff; border-color:#dc3545; }
+.wordle-controls { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+#wordleInput { padding:12px 15px; border:2px solid #ffd60a; border-radius:8px; background:rgba(0,0,0,0.3); color:white; font-size:1.5rem; width:100px; text-align:center; transition:all 0.2s; }
+#wordleInput:focus { outline:none; box-shadow:0 0 15px rgba(255,214,0,0.4); }
+.secondary-btn { background:rgba(255,214,0,0.2) !important; border:1px solid #ffd60a; color:#ffd60a !important; }
+.secondary-btn:hover { background:rgba(255,214,0,0.3) !important; }
+.attempt-counter { color:rgba(255,214,0,0.7); font-size:0.9rem; margin-bottom:5px; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">Math Exploration</div>
+  <div class="nav-links">
+    <a href="../home.html" style="background:#ffd60a;color:#111;padding:6px 14px;border-radius:6px;font-weight:700;">🏠 Home</a>
+    <a href="#hero">Home</a>
+    <a href="#numbers">Numbers</a>
+    <a href="#geometry">3D Shapes</a>
+    <a href="#algebra">Algebra</a>
+    <a href="#graph">Graph</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#wordle">Wordle</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="spiral"></div>
+  <h1>Math: From Constants to Chaos</h1>
+  <p>Explore the beauty of mathematics interactively!</p>
+</section>
+
+<!-- NUMBERS LAB -->
+<section id="numbers">
+  <div class="glass">
+    <h2>Numbers Lab 🔢</h2>
+    <p>Increment or decrement numbers and instantly see their square, cube, and whether they're even or odd.</p>
+    <div class="num-controls">
+      <button id="numDec" class="num-btn">−</button>
+      <b id="numDisplay">5</b>
+      <button id="numInc" class="num-btn">+</button>
+    </div>
+    <p id="numResult"></p>
+  </div>
+</section>
+
+<!-- 3D SHAPES -->
+<section id="geometry">
+  <div class="glass">
+    <h2 class="section-title">Draggable 3D Shapes</h2>
+    <p>Rotate the Cube, Pyramid, and Tetrahedron using mouse or touch. Drag to explore each shape in 3D!</p>
+    <div class="shape-area">
+      <div class="shape-container">
+        <canvas id="cubeCanvas" width="220" height="220" style="display:block;cursor:grab;border-radius:8px;"></canvas>
+        <p class="shape-label">Cube</p>
+      </div>
+      <div class="shape-container">
+        <canvas id="pyramidCanvas" width="220" height="220" style="display:block;cursor:grab;border-radius:8px;"></canvas>
+        <p class="shape-label">Pyramid</p>
+      </div>
+      <div class="shape-container">
+        <canvas id="tetraCanvas" width="220" height="220" style="display:block;cursor:grab;border-radius:8px;"></canvas>
+        <p class="shape-label">Tetrahedron</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALGEBRA -->
+<section id="algebra">
+  <div class="glass">
+    <h2>Algebra Hub</h2>
+    <p>Common algebra formulas and equations rendered using MathJax.</p>
+    <p>\( a^m \cdot a^n = a^{m+n} \)</p>
+    <p>\( (a^m)^n = a^{mn} \)</p>
+    <p>\( x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)</p>
+    <p>\( a^3 = a \cdot a \cdot a \)</p>
+    <p>\( \sqrt{a^2 + b^2} \)</p>
+  </div>
+</section>
+
+<!-- GRAPH -->
+<section id="graph">
+  <div class="glass">
+    <h2>Graph Plotter 📈</h2>
+    <p>Type a function of <code>x</code> (like <code>2*x+3</code>) and click Plot to visualize it.</p>
+    <div class="graph-input">
+      <input type="text" id="equation" value="2*x+3" placeholder="Enter function e.g., 2*x+3">
+      <button class="quiz-btn" id="plotBtn">Plot</button>
+    </div>
+    <canvas id="graphCanvas" width="600" height="350"></canvas>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="glass">
+    <h2>Random Fruit Quiz 🍎</h2>
+    <p>Solve the puzzles by figuring out the value of each fruit. Click an option to answer.</p>
+    <p id="quizQuestion"></p>
+    <div id="quizOptions" class="quiz-options"></div>
+    <p id="quizResult" class="quiz-result"></p>
+  </div>
+</section>
+
+<!-- WORDLE -->
+<section id="wordle">
+  <div class="glass">
+    <h2>3-Digit Wordle 🔢</h2>
+    <p>Guess the secret 3-digit number. Each digit is evaluated as:</p>
+    <ul style="margin:10px 0 0 20px; line-height:2;">
+      <li><strong style="color:#22c55e;">Green:</strong> Correct digit in correct position</li>
+      <li><strong style="color:#eab308;">Yellow:</strong> Digit exists but wrong position</li>
+      <li><strong style="color:#dc3545;">Red:</strong> Digit not present</li>
+    </ul>
+    <div class="attempt-counter" style="margin-top:15px;">Attempt: <span id="attemptCount">0</span>/6</div>
+    <div id="wordleGrid" class="wordle-grid"></div>
+    <div class="wordle-controls">
+      <input type="text" id="wordleInput" maxlength="3" placeholder="###">
+      <button class="quiz-btn" id="wordleBtn">Guess</button>
+      <button class="quiz-btn secondary-btn" id="newGameBtn">New Game</button>
+    </div>
+    <p id="wordleMsg" class="quiz-result"></p>
+  </div>
+</section>
+
+<!-- ===== ALL JAVASCRIPT ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ---- NUMBERS LAB ----
+  const numDisplay = document.getElementById('numDisplay');
+  const numResult  = document.getElementById('numResult');
+  let currentNumber = parseInt(numDisplay.textContent);
+  function updateNumber() {
+    numDisplay.textContent = currentNumber;
+    numResult.textContent = `Square: ${currentNumber**2}   Cube: ${currentNumber**3}   ${currentNumber%2===0?'Even':'Odd'}`;
+  }
+  document.getElementById('numInc').addEventListener('click', () => { currentNumber++; updateNumber(); });
+  document.getElementById('numDec').addEventListener('click', () => { currentNumber--; updateNumber(); });
+  updateNumber();
+
+  // ---- GRAPH ----
+  const gc  = document.getElementById('graphCanvas');
+  const ctx = gc.getContext('2d');
+  const W = gc.width, H = gc.height;
+  const SCALE = 30;
+  const OX = W/2, OY = H/2;
+
+  function plotGraph() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Background grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    for (let x = OX % SCALE; x < W; x += SCALE) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = OY % SCALE; y < H; y += SCALE) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+    // Axes
+    ctx.strokeStyle = 'rgba(255,214,0,0.7)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0,OY); ctx.lineTo(W,OY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(OX,0); ctx.lineTo(OX,H); ctx.stroke();
+
+    // Arrowheads
+    ctx.fillStyle = 'rgba(255,214,0,0.7)';
+    ctx.beginPath(); ctx.moveTo(W,OY); ctx.lineTo(W-10,OY-5); ctx.lineTo(W-10,OY+5); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(OX,0); ctx.lineTo(OX-5,10); ctx.lineTo(OX+5,10); ctx.closePath(); ctx.fill();
+
+    // Axis labels
+    ctx.fillStyle = 'rgba(255,214,0,0.9)';
+    ctx.font = 'bold 13px Inter';
+    ctx.fillText('x', W-12, OY-10);
+    ctx.fillText('y', OX+10, 14);
+
+    // Tick marks + numbers
+    ctx.font = '10px Inter';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.textAlign = 'center';
+    for (let u = -Math.floor(OX/SCALE); u <= Math.floor((W-OX)/SCALE); u++) {
+      if (u === 0) continue;
+      const px = OX + u*SCALE;
+      ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(px,OY-4); ctx.lineTo(px,OY+4); ctx.stroke();
+      ctx.fillText(u, px, OY+15);
+    }
+    ctx.textAlign = 'right';
+    for (let u = -Math.floor((H-OY)/SCALE); u <= Math.floor(OY/SCALE); u++) {
+      if (u === 0) continue;
+      const py = OY - u*SCALE;
+      ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(OX-4,py); ctx.lineTo(OX+4,py); ctx.stroke();
+      ctx.fillText(u, OX-8, py+4);
+    }
+
+    // Origin label
+    ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.textAlign='right';
+    ctx.fillText('0', OX-6, OY+14);
+
+    // Plot the function
+    const funcStr = document.getElementById('equation').value.replaceAll('^','**');
+    ctx.strokeStyle = '#ffd60a';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    let started = false;
+    for (let px = 0; px <= W; px++) {
+      const x = (px - OX) / SCALE;
+      let y;
+      try { y = eval(funcStr.replaceAll('x', `(${x})`)); } catch { started=false; continue; }
+      if (!isFinite(y) || isNaN(y)) { started=false; continue; }
+      const py = OY - y*SCALE;
+      if (!started) { ctx.moveTo(px,py); started=true; } else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+  }
+
+  document.getElementById('plotBtn').addEventListener('click', plotGraph);
+  plotGraph();
+
+  // ---- FRUIT QUIZ ----
+  const quizData = [
+    { question:'🍎 + 🍎 = 6<br>🍎 + 🍌 = 8<br>🍌 + 🍌 = 10<br>What is 🍎?', options:[2,3,4,5], answer:3 },
+    { question:'🍊 + 🍊 + 🍊 = 15<br>🍊 + 🍉 = 10<br>🍉 = ?',               options:[4,5,6,7], answer:5 },
+    { question:'🍇 * 2 = 10<br>🍇 - 🍓 = 2<br>🍓 = ?',                       options:[3,4,5,6], answer:3 },
+  ];
+  let currentQuizIndex = 0;
+  const quizQuestion = document.getElementById('quizQuestion');
+  const quizOptions  = document.getElementById('quizOptions');
+  const quizResult   = document.getElementById('quizResult');
+
+  function loadQuiz() {
+    quizResult.textContent = '';
+    const q = quizData[currentQuizIndex];
+    quizQuestion.innerHTML = q.question;
+    quizOptions.innerHTML = '';
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.textContent = opt; btn.className = 'quiz-btn';
+      btn.addEventListener('click', () => {
+        quizResult.textContent = opt===q.answer ? '✅ Correct!' : `❌ Wrong! Answer: ${q.answer}`;
+        currentQuizIndex = (currentQuizIndex+1) % quizData.length;
+        setTimeout(loadQuiz, 1500);
+      });
+      quizOptions.appendChild(btn);
+    });
+  }
+  loadQuiz();
+
+  // ---- WORDLE ----
+  const wordleGrid  = document.getElementById('wordleGrid');
+  const wordleInput = document.getElementById('wordleInput');
+  const wordleMsg   = document.getElementById('wordleMsg');
+  const attemptSpan = document.getElementById('attemptCount');
+  const MAX = 6;
+  let secretWord = '', attempts = 0, rowEls = [];
+
+  function buildGrid() {
+    wordleGrid.innerHTML = ''; rowEls = [];
+    for (let r = 0; r < MAX; r++) {
+      const row = document.createElement('div');
+      row.className = 'wordle-row';
+      const cells = [];
+      for (let c = 0; c < 3; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'wordle-cell';
+        row.appendChild(cell); cells.push(cell);
+      }
+      rowEls.push(cells); wordleGrid.appendChild(row);
+    }
+  }
+
+  function newGame() {
+    secretWord = String(Math.floor(100 + Math.random()*900));
+    attempts = 0; attemptSpan.textContent = 0;
+    wordleMsg.textContent = '';
+    wordleInput.disabled = false; wordleInput.value = '';
+    buildGrid();
+  }
+
+  function checkGuess() {
+    const guess = wordleInput.value.trim();
+    if (!/^\d{3}$/.test(guess)) { alert('Enter a 3-digit number'); return; }
+    if (attempts >= MAX) return;
+    const cells = rowEls[attempts];
+    for (let i = 0; i < 3; i++) {
+      cells[i].textContent = guess[i];
+      cells[i].classList.add('filled');
+      if      (guess[i] === secretWord[i])     cells[i].classList.add('correct');
+      else if (secretWord.includes(guess[i]))  cells[i].classList.add('present');
+      else                                      cells[i].classList.add('wrong');
+    }
+    attempts++; attemptSpan.textContent = attempts;
+    wordleInput.value = '';
+    if (guess === secretWord) { wordleMsg.textContent = '🎉 You guessed it!'; wordleInput.disabled = true; }
+    else if (attempts >= MAX) { wordleMsg.textContent = `💀 Game Over! Number was ${secretWord}`; wordleInput.disabled = true; }
+  }
+
+  document.getElementById('wordleBtn').addEventListener('click', checkGuess);
+  wordleInput.addEventListener('keyup', e => { if(e.key==='Enter') checkGuess(); });
+  document.getElementById('newGameBtn').addEventListener('click', newGame);
+  newGame();
+
+});
+</script>
+
+<!-- Three.js 3D Shapes -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+function createScene(canvasId, buildShape) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(220, 220);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 1.2, 5.5); camera.lookAt(0,0,0);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+  const d = new THREE.DirectionalLight(0xffffff,1.1); d.position.set(5,8,5); scene.add(d);
+  const f = new THREE.DirectionalLight(0x6666ff,0.4); f.position.set(-4,-2,-4); scene.add(f);
+  const r = new THREE.PointLight(0x00ffcc,0.5,20); r.position.set(-3,3,-3); scene.add(r);
+  const mesh = buildShape(scene);
+  let drag=false, px=0, py=0, vx=0, vy=0;
+  canvas.addEventListener('mousedown', e=>{drag=true;px=e.clientX;py=e.clientY;vx=0;vy=0;canvas.style.cursor='grabbing';});
+  window.addEventListener('mousemove', e=>{
+    if(!drag)return; const dx=e.clientX-px,dy=e.clientY-py;
+    mesh.rotation.y+=dx*0.013; mesh.rotation.x+=dy*0.013;
+    vy=dx*0.013; vx=dy*0.013; px=e.clientX; py=e.clientY;
+  });
+  window.addEventListener('mouseup',()=>{drag=false;canvas.style.cursor='grab';});
+  canvas.addEventListener('touchstart',e=>{drag=true;px=e.touches[0].clientX;py=e.touches[0].clientY;vx=0;vy=0;e.preventDefault();},{passive:false});
+  window.addEventListener('touchmove',e=>{
+    if(!drag)return; const dx=e.touches[0].clientX-px,dy=e.touches[0].clientY-py;
+    mesh.rotation.y+=dx*0.013; mesh.rotation.x+=dy*0.013;
+    vy=dx*0.013; vx=dy*0.013; px=e.touches[0].clientX; py=e.touches[0].clientY; e.preventDefault();
+  },{passive:false});
+  window.addEventListener('touchend',()=>{drag=false;});
+  (function animate(){
+    requestAnimationFrame(animate);
+    if(!drag){vx*=0.93;vy*=0.93;mesh.rotation.x+=vx;mesh.rotation.y+=vy+0.007;}
+    renderer.render(scene,camera);
+  })();
+}
+
+function buildCube(scene){
+  const g=new THREE.Group(), geo=new THREE.BoxGeometry(2,2,2);
+  const fc=[[1,.25,.25],[.9,.15,.15],[.25,.85,.35],[.1,.6,.2],[.25,.55,1],[.1,.35,.85]];
+  const cnt=geo.getAttribute('position').count, col=new Float32Array(cnt*3);
+  for(let f=0;f<6;f++)for(let v=0;v<4;v++){const i=f*4+v;col[i*3]=fc[f][0];col[i*3+1]=fc[f][1];col[i*3+2]=fc[f][2];}
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  g.add(new THREE.Mesh(geo,new THREE.MeshPhongMaterial({vertexColors:true,emissive:0x110000,shininess:80,flatShading:true})));
+  g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0xff8888,opacity:0.5,transparent:true})));
+  g.rotation.set(0.4,0.6,0.1); scene.add(g); return g;
+}
+
+function buildPyramid(scene){
+  const g=new THREE.Group();
+  const apex=new THREE.Vector3(0,1.5,0),s=1.3,y=-0.9;
+  const b0=new THREE.Vector3(-s,y,-s),b1=new THREE.Vector3(s,y,-s),b2=new THREE.Vector3(s,y,s),b3=new THREE.Vector3(-s,y,s);
+  const fc=[0x00ddaa,0x00bb88,0x009966,0x00cc99];
+  [[b0,b1],[b1,b2],[b2,b3],[b3,b0]].forEach(([a,b],i)=>{
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array([a.x,a.y,a.z,b.x,b.y,b.z,apex.x,apex.y,apex.z]),3));
+    geo.computeVertexNormals();
+    g.add(new THREE.Mesh(geo,new THREE.MeshPhongMaterial({color:fc[i],emissive:0x002211,shininess:70,side:THREE.DoubleSide,flatShading:true})));
+  });
+  const bg=new THREE.BufferGeometry();
+  bg.setAttribute('position',new THREE.BufferAttribute(new Float32Array([b0.x,b0.y,b0.z,b1.x,b1.y,b1.z,b2.x,b2.y,b2.z,b0.x,b0.y,b0.z,b2.x,b2.y,b2.z,b3.x,b3.y,b3.z]),3));
+  bg.computeVertexNormals();
+  g.add(new THREE.Mesh(bg,new THREE.MeshPhongMaterial({color:0x007744,emissive:0x001108,shininess:30,side:THREE.DoubleSide,flatShading:true})));
+  [[b0,b1],[b1,b2],[b2,b3],[b3,b0],[b0,apex],[b1,apex],[b2,apex],[b3,apex]].forEach(([a,b])=>{
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,b]),new THREE.LineBasicMaterial({color:0x00ffcc,opacity:0.4,transparent:true})));
+  });
+  g.rotation.set(-0.15,0.5,0); scene.add(g); return g;
+}
+
+function buildTetra(scene){
+  const g=new THREE.Group(), geo=new THREE.TetrahedronGeometry(1.6,0);
+  const cnt=geo.getAttribute('position').count, col=new Float32Array(cnt*3);
+  const fc=[[.7,.2,1],[.5,.1,.8],[.9,.4,1],[.4,.05,.65]];
+  for(let i=0;i<4;i++)for(let v=0;v<3;v++){col[(i*3+v)*3]=fc[i][0];col[(i*3+v)*3+1]=fc[i][1];col[(i*3+v)*3+2]=fc[i][2];}
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  g.add(new THREE.Mesh(geo,new THREE.MeshPhongMaterial({vertexColors:true,emissive:0x110022,shininess:100,side:THREE.DoubleSide,flatShading:true})));
+  g.add(new THREE.LineSegments(new THREE.WireframeGeometry(geo),new THREE.LineBasicMaterial({color:0xcc88ff,opacity:0.35,transparent:true})));
+  g.rotation.set(-0.3,0.6,0.1); scene.add(g); return g;
+}
+
+createScene('cubeCanvas', buildCube);
+createScene('pyramidCanvas', buildPyramid);
+createScene('tetraCanvas', buildTetra);
+</script>
+</body>
+</html>

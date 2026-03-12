@@ -1,0 +1,62 @@
+/* ---------- GENERAL ---------- */
+body{
+  margin:0; font-family:'Inter',sans-serif; background:#050816; color:white; overflow-x:hidden;
+}
+h1,h2,h3{margin:0;} section{padding:80px 10%;}
+a{color:#ffd60a;text-decoration:none;margin-left:20px;}
+button{cursor:pointer;}
+/* ---------- NAVBAR ---------- */
+nav{
+  position:fixed; top:0; width:100%;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  display:flex; justify-content:space-between; padding:15px 10%; z-index:20;
+}
+nav a:hover{color:#fff;}
+/* ---------- HERO ---------- */
+.hero{height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; overflow:hidden;}
+.hero h1{font-size:4rem;text-shadow:0 0 25px #ffd60a;margin-bottom:10px;}
+.hero p{opacity:0.8;}
+.spiral{position:absolute;width:500px;height:500px;border-radius:50%;border:2px solid #ffd60a;top:50%;left:50%;transform:translate(-50%,-50%);animation:spin 30s linear infinite;opacity:0.2;}
+@keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg);}100%{transform:translate(-50%,-50%) rotate(360deg);}}
+.particle{position:absolute;width:6px;height:6px;background:#ffd60a;border-radius:50%;pointer-events:none;animation:particleMove 1s ease-out forwards;}
+@keyframes particleMove{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-100px) scale(0);opacity:0;}}
+
+/* ---------- GLASS CARDS ---------- */
+.glass{
+  background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); border-radius:15px;
+  padding:30px; margin-bottom:40px; box-shadow:0 0 25px rgba(255,214,0,0.15); transition:0.3s;
+}
+.glass:hover{box-shadow:0 0 35px rgba(255,214,0,0.25);}
+
+/* ---------- NUMBERS LAB ---------- */
+.num-controls{display:flex; align-items:center; justify-content:center; gap:15px; margin:20px 0;}
+.num-controls b{font-size:2rem; min-width:60px; text-align:center;}
+.num-btn{padding:10px 20px;border:none;border-radius:6px;background:#ffd60a;color:#111;font-weight:700;transition:0.2s;}
+.num-btn:hover{background:#ffea55;}
+
+/* ---------- GRAPH ---------- */
+#graph .glass{text-align:center;}
+#equation{padding:12px 15px; border:2px solid #ffd60a; border-radius:8px; background:rgba(0,0,0,0.3); color:white; font-size:1rem; width:250px; margin-right:10px;}
+#equation:focus{outline:none;box-shadow:0 0 10px rgba(255,214,0,0.3);}
+canvas{width:100%;max-width:600px; display:block;margin:20px auto; border-radius:10px; background:#020617;}
+
+/* ---------- QUIZ ---------- */
+.quiz-options{display:flex; gap:10px; flex-wrap:wrap; margin-top:15px; justify-content:center;}
+.quiz-btn{padding:10px 16px;border:none;border-radius:8px;background:#ffd60a;font-weight:600; cursor:pointer; color:#111; transition:0.2s;}
+.quiz-btn:hover{background:#ffea55;}
+.quiz-result{margin-top:15px;font-weight:bold;color:#ffd60a;}
+#quizQuestion{font-size:1.1rem; line-height:1.8;}
+
+/* ---------- WORDLE ---------- */
+.wordle-grid{display:grid; grid-template-rows:repeat(6,1fr); gap:8px; margin:20px 0; justify-items:center;}
+.wordle-row{display:flex; gap:8px; justify-content:center;}
+.wordle-cell{width:55px;height:55px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.5rem;user-select:none;border:2px solid rgba(255,255,255,0.15);transition:all 0.3s;}
+.wordle-cell.correct{background:#22c55e;color:#fff;border-color:#22c55e;}
+.wordle-cell.present{background:#eab308;color:#111;border-color:#eab308;}
+.wordle-cell.wrong{background:#dc3545;color:#fff;border-color:#dc3545;}
+.wordle-controls{display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
+#wordleInput{padding:12px 15px;border:2px solid #ffd60a;border-radius:8px;background:rgba(0,0,0,0.3);color:white;font-size:1.5rem;width:100px;text-align:center; transition:all 0.2s;}
+#wordleInput:focus{outline:none;box-shadow:0 0 15px rgba(255,214,0,0.4);}
+.secondary-btn{background:rgba(255,214,0,0.2);border:1px solid #ffd60a;}
+.secondary-btn:hover{background:rgba(255,214,0,0.3);}
